@@ -1,35 +1,43 @@
 //変数を定義する
 PImage img;
-int speed = 2;
+int speed = 3;
 int dir = 1;
-int r;
+int x = 0;
+int y = 0;
 
 void setup(){
-  //背景色を白(255)に設定する
-  background(255);
+  background(255);//背景色を白(255)に設定する
   size(960, 720);
-  frameRate(30);
+  frameRate(60);
+  smooth();
   img = loadImage("panda_lay.png");
   //ランダムに表示させる
-  for (int i = 0; i < 10; i++) {
-    pushMatrix();
-    transformPanda(random(width), random(100, 200));
-    popMatrix();
-  }
-  r = 3;
+  //for (int i = 0; i < 10; i++) {
+  //  pushMatrix();
+  //  transformPanda(random(width), random(100, 200));
+  //  popMatrix();
+  //}
 }
 
 void draw(){
+  //背景を塗り直す
+  background(255);
   
-  
+  x = x + speed;
+  if ( ( x < img.width ) || ( x > width - img.width )  ) {
+    dir = - dir;
+  }
+  noStroke();
+  image( img, x, y );
+
 }
 
-void transformPanda(float x, float y) {
-  translate(x, y);
-  scale(random(0.5, 1.2));
-  rotate(random(-PI/6, PI/6));
-  image(img, 0, 0);
-}
+//void transformPanda(float x, float y) {
+//  translate(x, y);
+//  scale(random(0.5, 1.2));
+//  rotate(random(-PI/6, PI/6));
+//  image(img, 0, 0);
+//}
 
 //void mouseMoved(){
 //  fill(#000000);
