@@ -23,13 +23,12 @@ void draw(){
   //背景を塗り直す
   background(255);
   
-  x = x + speed;
-  if ( ( x < img.width ) || ( x > width - img.width )  ) {
+  x += dir * speed;
+  if ( ( x < 0 ) || ( x > width - img.width )  ) {
     dir = - dir;
   }
   noStroke();
   image( img, x, y );
-
 }
 
 //void transformPanda(float x, float y) {
