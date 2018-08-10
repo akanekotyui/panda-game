@@ -1,44 +1,44 @@
 //変数を定義する
 PImage img;
-int speed = 3;
-int dir = 1;
-int x = 0;
-int y = 0;
+int speed = 1;
+int dir = -1;
+int x1, y1 = 0;
+int x2, y2 = 50;
+int x3, y3 = 100;
+int sp_w = 850;
+int sp_h = 150;
 
-void setup(){
+void setup() {
   background(255);//背景色を白(255)に設定する
   size(960, 720);
   frameRate(60);
   smooth();
   img = loadImage("panda_lay.png");
-  //ランダムに表示させる
-  //for (int i = 0; i < 10; i++) {
-  //  pushMatrix();
-  //  transformPanda(random(width), random(100, 200));
-  //  popMatrix();
-  //}
 }
 
-void draw(){
+void draw() {
   //背景を塗り直す
   background(255);
-  
-  x += dir * speed;
-  if ( ( x < 0 ) || ( x > width - img.width )  ) {
-    dir = - dir;
+
+  x1 += dir * speed;
+  //端までいったら折り返す
+  if ( ( x1 < 0 ) || ( x1 > width - img.width )  ) {
+    dir = dir * -1;
+    //scale(-1,1);
+    //x1 = width - img.width;
   }
-  noStroke();
-  image( img, x, y );
+  if(mousePressed){
+    if(dist(x1+img.width/2,y1+img.height/2,mouseX,mouseY)<=100){
+      //パンダの動きをとめる
+      x1 = mouseX - img.width/2;
+      y1 = mouseY - img.height/2;
+      if ((height - sp_h/2) < (y1 + img.height)){
+        noLoop();
+      }
+    }
+  }
+    image( img, x1, y1 );
+  //シャンプー台の表示
+  rectMode(CENTER);
+  rect(width/2, height, sp_w, sp_h);
 }
-
-//void transformPanda(float x, float y) {
-//  translate(x, y);
-//  scale(random(0.5, 1.2));
-//  rotate(random(-PI/6, PI/6));
-//  image(img, 0, 0);
-//}
-
-//void mouseMoved(){
-//  fill(#000000);
-//  ellipse(mouseX, mouseY, 2*r, 2*r);
-//}
